@@ -111,19 +111,23 @@
         this: &mut MaybeUninit<Self>,
         name: &str
       ) -> &'storage mut Self {
-          let this = this.as_mut_ptr();
+        let this = this.as_mut_ptr();
 
-          let name = name.to_owned();
-          let data = Vec::new();
-          let len = name.len();
+        let name = name.to_owned();
+        let data = Vec::new();
 
-          unsafe {
-              ptr::write(&raw mut (*this).name, name);
-              ptr::write(&raw mut (*this).data, data);
-              ptr::write(&raw mut (*this).len, len);
-          }
+        unsafe {
+          ptr::write(&raw mut (*this).name, name);
+          ptr::write(&raw mut (*this).data, data);
 
-          unsafe { &mut *this }
+          let len = unsafe {
+              let name = &*(&raw const (*this).name);
+              name.len()
+          };
+          ptr::write(&raw mut (*this).len, len);
+        }
+
+        unsafe { &mut *this }
       }
   }
 

@@ -13,11 +13,15 @@ impl Foo {
 
         let name = name.to_owned();
         let data = Vec::new();
-        let len = name.len();
 
         unsafe {
             ptr::write(&raw mut (*this).name, name);
             ptr::write(&raw mut (*this).data, data);
+
+            let len = unsafe {
+                let name = &*(&raw const (*this).name);
+                name.len()
+            };
             ptr::write(&raw mut (*this).len, len);
         }
 
