@@ -1,4 +1,4 @@
-#import "rustikon.typ": rustikon, title-slide, slide, slide2, slide2flow
+#import "rustikon.typ": *
 
 #show: rustikon
 
@@ -32,7 +32,9 @@
 
 #slide2(
   left: [
-    #set text(size: 7pt)
+    #set text(size: 8pt)
+    #set align(top)
+
     ```rust
     pub struct Foo {
         name: String,
@@ -59,7 +61,9 @@
     ```
   ],
   right: [
-    #set text(size: 7pt)
+    #set text(size: 8pt)
+    #set align(top)
+
     ```cpp
     #include <string>
     #include <vector>
@@ -74,7 +78,7 @@
           : m_name{name}
           , m_data{}
           , m_len{this->m_name.length()}
-        {}
+          {}
     };
 
     int main() {
@@ -95,7 +99,7 @@
 ]
 
 #slide2flow[
-  #set text(size: 5pt)
+  #set text(size: 5.8pt)
   ```rust
   use std::mem::MaybeUninit;
   use std::ptr;
@@ -130,7 +134,12 @@
         unsafe { &mut *this }
       }
   }
+  ```
 
+  #colbreak()
+
+  #block-with-offset(offset: 33)[
+  ```rust
   fn use_foo(_foo: &Foo) {}
 
   fn main() {
@@ -144,6 +153,7 @@
       }
   }
   ```
+  ]
 ]
 
 #slide[
@@ -151,7 +161,8 @@
 ]
 
 #slide2flow[
-  #set text(size: 9pt)
+  #set text(size: 8pt)
+
   ```cpp
   #include <string>
   #include <vector>
@@ -170,6 +181,12 @@
   };
 
   void use_foo(const Foo &foo) {}
+  ```
+
+  #colbreak()
+
+  #block-with-offset(offset: 17)[
+  ```cpp
 
   int main() {
     alignas(Foo) std::byte buf[sizeof(Foo)];
@@ -181,6 +198,8 @@
     return 0;
   }
   ```
+  ]
+
 ]
 
 #slide[
@@ -238,6 +257,7 @@
 
 #slide2flow[
   #set text(size: 7pt)
+
   ```rust
   pub struct Logger(String);
 
@@ -258,6 +278,12 @@
           println!("Foo");
       }
   }
+  ```
+  
+  #colbreak()
+
+  #block-with-offset(offset: 19)[
+  ```rust
 
   impl Foo {
       pub fn new() -> Self {
@@ -273,6 +299,7 @@
       let foo = Foo::new();
   }
   ```
+  ]
 
   ```
   Output:
@@ -325,6 +352,12 @@
       }
   }
 
+  ```
+
+  #colbreak()
+
+  #block-with-offset(offset: 26)[
+  ```rust
   impl Foo {
       fn new() -> Self {
           Self {
@@ -339,6 +372,7 @@
       let foo = Foo::new();
   }
   ```
+  ]
 
   ```
   Output:
@@ -379,15 +413,9 @@
   };
 
   class Foo {
-    union {
-      Logger a;
-    };
-    union {
-      Logger b;
-    };
-    union {
-      Logger c;
-    };
+    union { Logger a; };
+    union { Logger b; };
+    union { Logger c; };
 
   public:
     Foo() : a{"a"}, b{"b"}, c{"c"} {}
@@ -398,12 +426,19 @@
     }
   };
 
+  ```
+
+  #colbreak()
+
+  #block-with-offset(offset: 25)[
+  ```cpp
   int main() {
     Foo foo = Foo{};
 
     return 0;
   }
   ```
+  ]
 
   ```
   Output:

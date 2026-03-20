@@ -45,9 +45,33 @@
         set align(left)
         grid(
           columns: (auto, 1fr),
-          gutter: 0.8em,
+          gutter: 0.5em,
           ..it.lines.map(line => (
             text(fill: luma(100), str(line.number)),
+            line,
+          )).flatten()
+        )
+      },
+    )
+  }
+
+  body
+}
+
+#let block-with-offset(body, offset: 0) = {
+  show raw.where(block: true): it => {
+    block(
+      fill: luma(30),
+      radius: 6pt,
+      inset: 6pt,
+      width: 100%,
+      {
+        set align(left)
+        grid(
+          columns: (auto, 1fr),
+          gutter: 0.5em,
+          ..it.lines.map(line => (
+            text(fill: luma(100), str(line.number + offset)),
             line,
           )).flatten()
         )
@@ -86,7 +110,7 @@
   pagebreak()
 
   place(center, line(stroke: 0.5pt + white, angle: 90deg, length: 100%))
-  columns(2, gutter: 1.5em, body)
+  columns(2, gutter: 1em, body)
 }
 
 #let title-slide(title, subtitle: none) = {
