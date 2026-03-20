@@ -13,3 +13,4 @@ Slides for Rustikon 2026 lightning talk.
 - [C++ documentation on destructors](https://en.cppreference.com/w/cpp/language/destructor.html)
 - [C++ documentation on placement new](https://en.cppreference.com/w/cpp/language/new.html#Placement_new)
 - [Ralf Jung's post on uninitialized memory](https://www.ralfj.de/blog/2019/07/14/uninit.html)
+- [Rust RFC-1857 stabilizing drop order](https://rust-lang.github.io/rfcs/1857-stabilize-drop-order.html)
