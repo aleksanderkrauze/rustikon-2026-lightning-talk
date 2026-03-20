@@ -78,7 +78,7 @@
           : m_name{name}
           , m_data{}
           , m_len{this->m_name.length()}
-          {}
+        {}
     };
 
     int main() {
@@ -112,7 +112,7 @@
 
   impl Foo {
       pub fn new_in<'storage>(
-        this: &mut MaybeUninit<Self>,
+        this: &'storage mut MaybeUninit<Self>,
         name: &str
       ) -> &'storage mut Self {
         let this = this.as_mut_ptr();
@@ -174,9 +174,9 @@
 
   public:
     explicit Foo(const char *name)
-        : m_name{name},
-        m_data{},
-        m_len{this->m_name.length()}
+        : m_name{name}
+        , m_data{}
+        , m_len{this->m_name.length()}
       {}
   };
 
@@ -408,7 +408,9 @@
     std::string m_message;
 
   public:
-    Logger(const char *message) : m_message{message} {}
+    Logger(const char *message)
+        : m_message{message}
+      {}
     ~Logger() { std::println("{}", m_message); }
   };
 
@@ -430,7 +432,7 @@
 
   #colbreak()
 
-  #block-with-offset(offset: 25)[
+  #block-with-offset(offset: 27)[
   ```cpp
   int main() {
     Foo foo = Foo{};

@@ -8,7 +8,10 @@ pub struct Foo {
 }
 
 impl Foo {
-    pub fn new_in<'storage>(this: &mut MaybeUninit<Self>, name: &str) -> &'storage mut Self {
+    pub fn new_in<'storage>(
+        this: &'storage mut MaybeUninit<Self>,
+        name: &str,
+    ) -> &'storage mut Self {
         let this = this.as_mut_ptr();
 
         let name = name.to_owned();
